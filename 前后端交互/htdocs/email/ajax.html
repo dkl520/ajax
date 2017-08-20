@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>phone</title>
+</head>
+ <style>
+ 	.text-danger{
+ 		color: #a00;
+
+ 	}
+ 	.text-success{
+ 		color: #0a0;
+
+ 	}
+
+ </style>
+<body>
+    <h1>邮箱注册</h1>
+      <form action="check_phone.php" method="post">
+      	手机号 ：<input type="text" name="phone" id="phone">
+      	<span id="phoneMsg"></span><br>
+
+
+        密码号：<input type="text" name="pwd" >
+        <input type="submit" name="提交">
+      </form>
+
+	<script>
+	 phone.onblur=function () {
+	 	 var p=this.value;
+	 	  console.log('当前输入：'+p)
+	 	  if (!p) {
+	 	  	 return;
+	 	  }
+	 	  var xhr= new XMLHttpRequest();
+
+ 			xhr.onreadystatechange=function () {
+ 				if (xhr.readyState==4) {
+ 					if (xhr.status==200) {
+ 					doResponse(xhr);
+ 						
+ 					}else{
+ 						alert('响应完成且有问题')
+ 					}
+ 				}
+ 				  
+ 			}
+	 	   xhr.open('POST','check_phone.php?phone='+p,true);
+	 	   xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+	 	 
+
+
+	 	   xhr.send(null);
+	 	   function doResponse(xhr) {
+	 	   	       console.log('开始处理响应数据')
+	 	   	       console.log(xhr);
+	 	   	       if (xhr.responseText=='cunzai') {
+	 	   	       	     phoneMsg.className='text-danger'
+	 	   	       	     phoneMsg.innerHTML='手机号已经注册' ;
+	 	   	       }else if(xhr.responseText=='bucunzai'){
+	 	   	       	  phoneMsg.className='text-success';
+	 	   	       	  phoneMsg.innerHTML='手机号可用';
+	 	   	       }else{
+  						alert('不可识别的响应数据：'+xhr.responseText);
+	 	   	       }
+	 	   }
+
+
+
+
+	 }	
+	</script>
+</body>
+</html>

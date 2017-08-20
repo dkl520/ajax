@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>select</title>
+</head>
+
+<body>
+    <select name="" id="selectType">
+        <option value="0">--请选择产品列表--</option>
+    </select>
+    <select name="" id="selectType2">
+        <option value="0">--请选择生产厂家--</option>
+    </select>
+    <select name="" id="sel">
+        <option value="0">--请选择产品类型--</option>
+    </select>
+    <script src='jquery-1.11.3.js'>
+    </script>
+    <script>
+    	$(function () {
+    		 $.get('type_select.php','', function(list) {
+    		 	  console.log('开始');
+    		 	  var html='';
+    		 	  for (var i = 0; i < list.length; i++) {
+    		 	   var type=	list[i];
+    		 	   html+=`<option value='${type.tid}'>
+					${type.tname}
+        	   	   </option>`
+    		 	  }
+    		 	  selectType.innerHTML+=html;
+    		 });
+    	})
+selectType.onchange=function () {
+    		  var tid=this.value;
+    		  if (tid=='0') {
+    		  	return;
+    		  }
+    		  console.log(tid);
+    		 $.get('producer_select.php',{"typeId":tid},function(list) {
+    		 	/*optional stuff to do after success */
+    		       console.log('action');
+    		       var html='<option value="0">--请选择生产厂家--</option>';
+    		       for (var i = 0; i < list.length; i++) {
+    		       		 var a= list[i];
+    		       		  html+=`<option value='${a.pid}'>
+					${a.pname}
+        	   	   </option>`
+    		       	}	
+    		       	selectType2.innerHTML=html;
+    		 });
+    	}
+    </script>
+</body>
+
+</html>

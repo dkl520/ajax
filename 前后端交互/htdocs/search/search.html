@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>搜获</title>
+</head>
+<style>
+	.container{
+		position: relative;
+	}
+	#suggests{
+		position: absolute;
+		top: 100%;
+		left: 0;
+		margin: 0;
+		padding: 0 ;
+		list-style: none;
+		border: 1px solid #aaa;
+		width: 260px;
+		display: none;
+	}
+	.suggests.active{
+		 display: block;
+	}
+	#suggests li{
+		line-height: 2em;
+		cursor: pointer;
+		padding: 0 10px;
+	}
+	#suggests li:hover{
+	   background: #eee;
+	}
+</style>
+<body>
+	<h3>书籍搜索</h3>
+	<div class="container">
+	<input  id="kw"><button>百度一下</button>
+		<ul id="suggests">
+			<li>java</li>
+			<li>java</li>
+			<li>java</li>
+			<li>jaba</li>
+			<li>jakaa</li>
+			<li>kaba</li>
+			<li>javasss</li>
+			
+		</ul>
+	</div>
+	<script>
+		kw.onkeyup=function () {
+			var k=this.value;
+			console.log(k)
+			if (!k) {
+				suggests.className='suggests';
+				return;
+			}
+			var xhr=new XMLHttpRequest();
+			xhr.onreadystatechange=function () {
+				if (chr.readyState==4) {
+					if (xhr.status==200) {
+						doResponse(xhr);
+					}else{
+						  alert('有问题')
+					}
+				}
+			}
+			xhr.open('GET',`search.php?kw=${k}`,true);
+			xhr.send(null);
+             function doResponse() {
+             	 console.log('开始处理数据');  
+             	 console.log(xhr);
+             	 if (!xhr.responseText) {
+             	 	 suggests.className='';
+
+
+             	 }else{
+             	 	suggests.innerHTML=xhr.responseText;
+             	 	suggests.className='active';
+             	 }
+             }
+		}
+
+	</script>
+</body>
+</html>

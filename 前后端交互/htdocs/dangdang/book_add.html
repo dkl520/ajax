@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>book</title>
+</head>
+<body>
+书名<input type="text" id="name"><br>
+价格<input type="text" id="price"><br>
+图片<input type="text " id="pic">
+<input type="button" value="提交" id="button">
+<script>
+	button.onclick=function (e) {
+		e.preventDefault();
+		var xhr=new XMLHttpRequest();
+		var sname=name.value;
+		var sprice=price.value;
+		var spic=pic.value;
+		xhr.onreadystatechange=function () {
+			if (xhr.readyState==4) {
+				if (xhr.status==200) {
+					   console.log('good job');
+				}else{
+ 					   alert('已经响应，但是有问题');
+				}
+			}
+		}
+		xhr.open('POST','book_add.php',	true);
+		xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+		xhr.send(`bname=${sname}&price=${sprice}&pic=${spic}`);
+
+		  
+	}  
+</script>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>qinghua</title>
+</head>
+
+<body>
+    <select name="select" id="select">
+        <option value="10">软件0801班</option>
+    </select>
+    <table width="100%" border="1">
+        <thead>
+            <th>编号</th>
+            <th>姓名</th>
+            <th>成绩</th>
+            <th>操作</th>
+        </thead>
+        <tbody id="tbodyStudent">
+        </tbody>
+    </table>
+    <script>
+    window.onload = function() {
+        console.log('ok');
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4) {
+                if (xhr.status == 200) {
+                    doresponse(xhr);
+                } else {
+                    alert('有问题')
+                }
+            }
+
+        };
+
+        xhr.open('GET', 'class_select.php', true);
+        xhr.send(null);
+
+        function doresponse(xhr) {
+            var list = JSON.parse(xhr.responseText),
+
+                html = '';
+            for (var i = 0; i < list.length; i++) {
+                var c = list[i];
+                html += `
+        	   	<option value='${c.sid}'>
+					${c.cname}
+        	   	</option>`
+            }
+            select.innerHTML = html;
+        }
+    }
+    select.onchange = function() {
+        var cid = this.value;
+        console.log(cid);
+        if (cid === '0') {
+            return;
+        }
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4) {
+                if (xhr.status == 200) {
+                    doresponse(xhr);
+                } else {
+                    alert('有问题')
+                }
+            }
+
+        };
+
+        xhr.open('GET', `select_student.php?sid=${cid}`, true);
+        xhr.send(null);
+
+        function doresponse(xhr) {
+            var list = JSON.parse(xhr.responseText);
+            console.log(list);
+
+            var html = '';
+            for (var i = 0; i < list.length; i++) {
+                var s = list[i];
+                html += `
+            		 <tr>
+            		 	<td>${s.sid}</td>
+            		 	<td>${s.cname}</td>
+            		 	<td>${s.ccore}</td>
+            		 	<td>删除</td>
+            		 </td>
+            		 `;
+
+
+            }
+            tbodyStudent.innerHTML = html;
+        }
+    }
+    </script>
+</body>
+
+</html>

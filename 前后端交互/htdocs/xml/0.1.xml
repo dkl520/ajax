@@ -1,0 +1,19 @@
+<?xml version="1.0"  encoding="utf-8"  ?>
+
+ <productList>
+ 	    <product pid='0.0'>
+ 	    	<pname>三星</pname>
+ 	    	<price>35.5</price>
+ 	    	<pic>1.jpg</pic>
+ 	    </product>
+ 	     <product pid='0.0'>
+ 	    	<pname>三星</pname>
+ 	    	<price>35.5</price>
+ 	    	<pic>2.jpg</pic>
+ 	    </product>
+ 	     <product pid='0.0'>
+ 	    	<pname>苹果</pname>
+ 	    	<price>35.5</price>
+ 	    	<pic>3.jpg</pic>
+ 	    </product>
+ </productList>

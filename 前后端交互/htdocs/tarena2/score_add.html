@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>score</title>
+</head>
+<body>
+		<h1>
+		成绩录入系统		
+		</h1>
+		学生姓名：<input type="text" id="stuName">
+	    语文成绩<input type="text" id="chinese">
+	    数学成绩<input type="text" id="math">
+	    <input type="button" value='保存成绩' id="button">
+	    <script>
+	    	document.getElementById('button').onclick=function (e) {
+	    		e.preventDefault();
+	    		var stuName=document.getElementById('stuName').value;
+	    		var chi=document.getElementById('chinese').value;
+	    		var math=document.getElementById('math').value;
+	    		 if (!chi) {
+                       return;
+                   }
+
+	    		var xhr=new XMLHttpRequest();
+	    		xhr.onreadystatechange=function () {
+
+	    			  if (xhr.readyState==4) {
+	    			  	if (xhr.status==200) {
+	    			  		console.log(stuName);
+	    			   console.log('good job');
+	    			  	}else{
+	    			  		alert('已经响应，但是有问题');
+	    			  	}
+	    			  }
+	    		}
+	    		xhr.open('POST','score_add.php',true);
+	    		xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+	    	    xhr.send('stuName='+stuName+'&chinese='+chi+'&math='+math);
+	    	    // function doResponse(xhr) {
+	    	    // 	console.log('开始响应数据');
+	    	    // 	console.log(xhr.responseText);
+	    	    // 	if (xhr.responseText=='succ') {
+
+	    	    // 	}
+	    	    // 	// body...
+	    	    // }
+
+	    	}
+	    </script>
+</body>
+</html>

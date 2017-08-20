@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<style>
+.modal {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+}
+
+.modal.active {
+    display: block;
+}
+
+.modal-dialog {
+    width: 410px;
+    margin: 50px auto;
+}
+
+.modal-content {
+    background: #fff;
+    border-radius: 4px;
+    padding: 50px;
+}
+
+.hidden {
+    display: none;
+}
+</style>
+
+<body>
+    <div id="loginArea">
+        <a href="#" id="btLogin">用户登录</a>
+    </div>
+    <div class="modal" id="modalLogin">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                手机号
+                <input type="text" id="phone"  >
+                <br> 密码
+                <input type="text" id="pwd">
+                <br>
+
+                <input type="button" value="提交" id="btSubmit">
+            </div>
+        </div>
+    </div>
+    <script>
+    btLogin.onclick = function(e) {
+        e.preventDefault();
+        modalLogin.className = 'modal active';
+    };
+
+    btSubmit.onclick = function() {
+          var p=document.getElementById('phone').value;
+          var q=document.getElementById('pwd').value;
+        console.log('当前输入：' + p+":"+q);
+        if (!p) {
+            return;
+        }
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4) {
+                if (xhr.status == 200) {
+                    doResponse(xhr);
+                } else {
+                    alert('响应有问题');
+                }
+            }
+        }
+        xhr.open('POST', 'mail_login.php', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.send('phone='+p+'&pwd='+q);
+    }
+
+        function doResponse(xhr) {
+            console.log('开始处理响应数据')
+            console.log(xhr.responseText);
+            if (xhr.responseText == 'succ') {
+                modalLogin.className ='modal';
+        		document.getElementsByTagName('a')[0].innerHTML='欢迎回来';
+
+            } else if (xhr.responseText == 'err') {
+            	console.log("error");
+				                  
+            } else {
+                alert('不可识别的响应数据：' + xhr.responseText);
+            }
+        }
+    </script>
+</body>
+
+</html>

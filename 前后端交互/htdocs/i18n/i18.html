@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>i18n</title>
+</head>
+<body>
+  <button id="dd">提交</button>
+  
+   <script>
+   	  dd.onclick=function () {
+   	  	    var xhr=new XMLHttpRequest();
+   	  	    xhr.onreadystatechange=function () {
+   	  	    	  if (xhr.readyState==4) {
+   	  	    	  	if (xhr.status==200) {
+   	  	    	        doresponse(xhr);
+   	  	    	  	}else{
+   	  	    	  		console.log('有问题');
+   	  	    	  	}
+   	  	    	  }
+   	  	    }
+   	  	    xhr.open('GET','i18.php',true);
+   	  	    xhr.send(null);
+   	  	    function doresponse(xhr) {
+   	  	    	 console.log('开始处理响应结果');
+   	  	    	 console.log(xhr);
+   	  	    	 eval(xhr.responseText);
+
+   	  	    }
+   	  }
+   </script>
+</body>
+</html>

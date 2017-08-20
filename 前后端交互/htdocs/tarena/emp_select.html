@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>tarena</title>
+</head>
+
+<body>
+    <select name="EMP" id="select">
+        <option value="0" checked>--请选择部门--</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+    </select>
+    <script>
+    select.onchange = function(e) {
+        e.preventDefault();
+        var keys = this.value
+        if (isNaN(keys)) {
+            return;
+        }
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    console.log('good job');
+                } else {
+                    alert('有问题');
+                }
+            }
+        }
+        xhr.open('POST', 'emp_select.php', true);
+        xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+        xhr.send(`deptID={keys}`);
+
+        function doresponse(xhr) {
+            var obj = JSON.parse(xhr.responseText);
+            console.log(obj);
+        }
+
+    }
+    </script>
+</body>
+
+</html>

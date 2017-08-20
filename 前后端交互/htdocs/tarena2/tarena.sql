@@ -1,0 +1,14 @@
+SET NAMES UTF8;
+DROP DATABASE IF EXISTS tarena;
+CREATE DATABASE tarena CHARSET=UTF8;
+USE tarena;
+CREATE TABLE score (
+	sid INT PRIMARY KEY AUTO_INCREMENT,
+	stuName VARCHAR(32),
+	chinese FLOAT(3,1),
+	math FLOAT(3,1)
+);
+INSERT INTO score VALUES
+(NULL,'啊啊','99','32'),
+(NULL,'求请','59','32'),
+(NULL,'遮罩','89','32.5');
